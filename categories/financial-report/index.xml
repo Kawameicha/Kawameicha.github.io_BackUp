@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Financial Report on In Code We Trust</title>
+    <link>/categories/financial-report/</link>
+    <description>Recent content in Financial Report on In Code We Trust</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 26 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/financial-report/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Beginners&#39; Guide to Financial Report with R</title>
+      <link>/2017/05/beginners-guide-to-financial-report-with-r/</link>
+      <pubDate>Fri, 26 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/05/beginners-guide-to-financial-report-with-r/</guid>
+      <description>I’ve been doing basic accounting for a while now and last year I discovered the simple, yet powerful application Debit &amp;amp; Credit. I always thought it was a bit of a hassle, but ever since I’ve started to use it, I’ve been keeping track of every single expense. It does exactly what it tells: keeping financial records and never accessing my data. Of course this isn’t rocket science but it’s useful.</description>
+    </item>
+    
+  </channel>
+</rss>

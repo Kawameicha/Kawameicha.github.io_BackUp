@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.41 with theme Tranquilpeak 0.4.3-SNAPSHOT">
+<meta name="author" content="Christoph Freier">
+<meta name="keywords" content=", rstats, data science">
+<meta name="description" content="Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.">
+
+
+<meta property="og:description" content="Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bombs Away!">
+<meta name="twitter:title" content="Bombs Away!">
+<meta property="og:url" content="/2017/06/bombs-away/">
+<meta property="twitter:url" content="/2017/06/bombs-away/">
+<meta property="og:site_name" content="In Code We Trust">
+<meta property="og:description" content="Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.">
+<meta name="twitter:description" content="Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2017-06-04T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2017-06-04T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Descriptive Statistics">
+    
+      <meta property="article:section" content="Geographic Visualization">
+    
+  
+  
+    
+      <meta property="article:tag" content="ggmap">
+    
+      <meta property="article:tag" content="ggplot2">
+    
+      <meta property="article:tag" content="lubridate">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@ChristophFreier">
+
+
+  <meta name="twitter:creator" content="@ChristophFreier">
+
+
+
+
+
+
+  <meta property="og:image" content="http://wiki.janssenweb.com/cityofwonder/images/thumb/8/86/Nuclear_missile_silo.png/180px-Nuclear_missile_silo.png">
+  <meta property="twitter:image" content="http://wiki.janssenweb.com/cityofwonder/images/thumb/8/86/Nuclear_missile_silo.png/180px-Nuclear_missile_silo.png">
+
+
+  <meta property="og:image" content="http://anonymous-news.com/wp-content/uploads/2017/11/North-Korea.jpg">
+  <meta property="twitter:image" content="http://anonymous-news.com/wp-content/uploads/2017/11/North-Korea.jpg">
+
+
+
+
+  <meta property="og:image" content="/image/bio.jpg">
+  <meta property="twitter:image" content="/image/bio.jpg">
+
+
+    <title>Bombs Away!</title>
+
+    <link rel="icon" href="image/favicon.ico">
+    
+
+    
+
+    <link rel="canonical" href="/2017/06/bombs-away/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-nnm2spxvve8onlujjlegkkytaehyadd4ksxc1hyzzq9a2wvtrgbljqyulomn.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">In Code We Trust</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Christoph Freier</h4>
+        
+          <h5 class="sidebar-profile-bio">Hello, my name is Christoph Freier. Regularly, people stop me on the street and ask me <em>&ldquo;hey, what&rsquo;s your name?&rdquo;</em> I reply my name is Christoph Freier and I rock a great mustache.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/page/useful-resources">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+      
+      <span class="sidebar-button-desc">Resources</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/page/about-me">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-user"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kawameicha">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gitlab.com/kawameicha">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-gitlab"></i>
+      
+      <span class="sidebar-button-desc">Gitlab</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/christophfreier/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/ChristophFreier">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="mailto:christoph@freier.fr" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-envelope"></i>
+      
+      <span class="sidebar-button-desc">Email me</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-left
+              post-header-cover--partial"
+       style="background-image:url('http://anonymous-news.com/wp-content/uploads/2017/11/North-Korea.jpg')"
+       data-behavior="5">
+    
+      <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Bombs Away!
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2017-06-04T00:00:00Z">
+        
+  
+  
+  
+  
+    Jun 4, 2017
+  
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/descriptive-statistics">Descriptive Statistics</a>, 
+    
+      <a class="category-link" href="/categories/geographic-visualization">Geographic Visualization</a>
+    
+  
+
+  </div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="5"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>Okay, my <a href="http://christoph.freier.fr/blog/beginners-guide-to-financial-report-with-r/">last post</a> wasn’t really rocket science but did you ever heard about the <a href="http://www.nti.org/analysis/articles/cns-north-korea-missile-test-database/">James Martin Center for Nonproliferation Studies North Korea Missile Test Database</a>? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”</p>
+<p>Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years. And as usual, plotting things really helps to make one’s mind up. By documenting all such tests since the first one occurred in April 1984, this kind of dataset helps us to take the measure of North Korea’s missile program recent acceleration.</p>
+<p>One last detail, as North Korea never stops to experiment, the database is being routinely updated.</p>
+<div id="how-to-recover-the-most-current-data" class="section level1">
+<h1>How to recover the most current data</h1>
+<p>Many people still save their data into Microsoft Excel files. This is an unhappy choice for many reasons but a lot were already written about this topic. Unfortunately, this is what we have to deal with here. So choices to read the file are somehow limited. I personally like to use the <code>readxl</code> package.</p>
+<p>I told you the database is being regularly updated. If we want to get the latest version of the file we need to use the <code>curl</code> package to download it directly from the website.</p>
+<pre class="r"><code># Some settings
+temp &lt;- tempfile()
+url &lt;- &quot;https://www.nti.org/documents/2137/north_korea_missile_test_database.xlsx&quot;
+
+# Then download it
+curl_download(url, temp)
+
+# And read it
+nkMissile &lt;- read_excel(temp, sheet = 1)</code></pre>
+<p>We get the following information about the tests.</p>
+<pre class="r"><code>colnames(nkMissile)
+##  [1] &quot;F1&quot;                      &quot;Date&quot;                   
+##  [3] &quot;Date Entered/Updated&quot;    &quot;Launch Time (UTC)&quot;      
+##  [5] &quot;Missile Name&quot;            &quot;Missile Type&quot;           
+##  [7] &quot;Launch Agency/Authority&quot; &quot;Facility Name&quot;          
+##  [9] &quot;Facility Location&quot;       &quot;Other Name&quot;             
+## [11] &quot;Facility Latitude&quot;       &quot;Facility Longitude&quot;     
+## [13] &quot;Landing Location&quot;        &quot;Apogee&quot;                 
+## [15] &quot;Distance Travelled&quot;      &quot;Confirmation Status&quot;    
+## [17] &quot;Test Outcome&quot;            &quot;Additional Information&quot; 
+## [19] &quot;Source(s)&quot;</code></pre>
+<p>The <code>F1</code> is the test identification number, then comes the test date, the missile type, the facility where it was fired from, flight information like apogee and distance, and some additional information which consists of a short written summary of the test.</p>
+</div>
+<div id="is-the-frequency-of-tests-increasing-over-time" class="section level1">
+<h1>Is the frequency of tests increasing over time?</h1>
+<p>Quite a hot topic, right? Let’s add a <code>Year</code> tag.</p>
+<pre class="r"><code>nkMissile$Year &lt;- year(nkMissile$Date)</code></pre>
+<p>Also interesting would be to know who was in charge at the time of the test. It requires us to add a <code>Leader</code> tag and for that we’ll need to create intervals with <code>lubridate</code>. Date where found on <a href="https://en.wikipedia.org/wiki/Main_Page">wikipedia</a>, as usual.</p>
+<pre class="r"><code>KimIlsung &lt;- ymd(&quot;1972-12-28&quot;) %--% ymd(&quot;1994-07-08&quot;)
+KimJongil &lt;- ymd(&quot;1994-07-08&quot;) %--% ymd(&quot;2011-12-17&quot;)
+KimJongun &lt;- ymd(&quot;2011-12-17&quot;) %--% today()</code></pre>
+<p>Let’s match it to the test date.</p>
+<pre class="r"><code>nkMissile$Leader &lt;- ifelse(nkMissile$Date %within% KimIlsung == TRUE, &quot;Kim Il-sung&quot;,
+                           ifelse(nkMissile$Date %within% KimJongil == TRUE, &quot;Kim Jong-il&quot;,
+                           ifelse(nkMissile$Date %within% KimJongun == TRUE, &quot;Kim Jong-un&quot;, NA)))</code></pre>
+<p>And here we go.</p>
+<pre class="r"><code>nkMissile %&gt;%
+  ddply(.(Leader, Year), summarise,
+        total = length(F1)) %&gt;%
+  ggplot(aes(x = Year, y = total, fill = Leader)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .7, position = position_dodge()) +
+  theme_minimal() +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  labs(x = NULL, y = &quot;Number of missiles tested&quot;,
+       title = &quot;North Korea&#39;s missile program over time&quot;,
+       subtitle = &quot;A family story&quot;) +
+  theme(legend.title = element_blank())</code></pre>
+<p><img src="/post/2017-06-04-bombs-away_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We can easily get the total number of tests per leader if we reorganize.</p>
+<pre class="r"><code>nkMissile %&gt;%
+  ddply(.(Leader), summarise,
+        Missile = length(F1))
+##        Leader Missile
+## 1 Kim Il-sung      15
+## 2 Kim Jong-il      16
+## 3 Kim Jong-un      86</code></pre>
+<p>I think we have a clear winner! Kim Jong-un scores a truly impressive 86 missiles tested. And this truly rocket lover made it in half the time his predecessors reigned. That is what I’d call program acceleration. But what about potential progress over the past couple of years?</p>
+</div>
+<div id="did-you-say-rocket-science" class="section level1">
+<h1>Did you say rocket science?</h1>
+<p>Let’s now have a look at the missiles themselves. How many different models do they have. Easy one.</p>
+<pre class="r"><code>unique(nkMissile$`Missile Name`)
+##  [1] &quot;Scud-B&quot;      &quot;Unknown&quot;     &quot;Nodong&quot;      &quot;Scud-C&quot;      &quot;Taepodong-1&quot;
+##  [6] &quot;Unha&quot;        &quot;Unha-3&quot;      &quot;KN-02&quot;       &quot;Polaris-1&quot;   &quot;Musudan&quot;    
+## [11] &quot;ER Scud&quot;     &quot;Polaris-2&quot;   &quot;Hwasong-12&quot;  &quot;Scud-C MaRV&quot; &quot;Hwasong-14&quot; 
+## [16] &quot;Scud-B MaRV&quot; &quot;Hwasong-15&quot;</code></pre>
+<p>Mmm, 17 unique names. This is something none of the brewer palette chart can handle. We need to create some more.</p>
+<pre class="r"><code># Define the length
+colourCount &lt;- length(unique(nkMissile$`Missile Name`))
+
+# And adapt the &#39;Set3&#39; palette
+getPalette &lt;- colorRampPalette(brewer.pal(9, &quot;Set3&quot;))</code></pre>
+<p>This now allows us to visualize all the 16 missiles and the unknown type. So we can visualize which missile was tested by all three leaders.</p>
+<pre class="r"><code>nkMissile %&gt;%
+  ddply(.(Leader, `Missile Type`, `Missile Name`), summarise,
+        total = length(F1)) %&gt;%
+  ggplot(aes(x = Leader, y = total, fill = `Missile Name`)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .7, position = position_dodge()) +
+  theme_minimal() +
+  scale_fill_manual(values = getPalette(colourCount)) +
+  labs(x = NULL, y = NULL,
+       title = &quot;Missiles tested by North Korean leaders&quot;,
+       subtitle = &quot;(One is more creative!)&quot;) +
+  theme(legend.title = element_blank())</code></pre>
+<p><img src="/post/2017-06-04-bombs-away_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>I must confess, probably like most of you, I never built a rocket myself and I do not really know a lot about missile science. I think we could try to organize them into types to get the big picture easily.</p>
+<pre class="r"><code>nkMissile %&gt;%
+  ddply(.(Leader, `Missile Type`, `Missile Name`), summarise,
+        total = length(F1)) %&gt;%
+  ggplot(aes(x = `Missile Type`, y = total, fill = `Missile Name`)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .7, position = position_dodge()) +
+  theme_minimal() +
+  scale_fill_manual(values = getPalette(colourCount)) +
+  labs(x = NULL, y = NULL,
+       title = &quot;Tested types of missile&quot;,
+       subtitle = &quot;And respective names&quot;) +
+  theme(legend.title = element_blank(), axis.text.x = element_text(angle = 45)) +
+  facet_wrap(~Leader, ncol = 3) +
+  theme(strip.text.x = element_text(face=&quot;bold&quot;),
+        strip.background = element_blank())</code></pre>
+<p><img src="/post/2017-06-04-bombs-away_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Well okay, one can reasonably assume that the unknown name would most certainly belong to one of those five types. It clearly appears that Kim Jong-un is far more creative and explores many more types of missiles than its predecessors. Whereas, Kim Il-sung and Kim Jong-il restricted themselves to ~2-3 types only, he is the only one testing all of them. He also seems to have a clear preference for the SRBM type. Is there maybe a reason for that?</p>
+</div>
+<div id="how-far-can-they-travel" class="section level1">
+<h1>How far can they travel?</h1>
+<p>I’m afraid I have some bad news for you now. Distance aren’t available for all of them. So we can only work on a subset here. In addition to that, we have to do some cleaning as they all contain ‘km’, and therefore must have been handled as factors. Lastly, we have to convert to numeric. As I told you the .xlsx file is an unhappy choice. So it looks weird, I know.</p>
+<pre class="r"><code># Select missiles for which we have travel distance only
+nkDistance &lt;- subset(nkMissile, grepl(&quot;km&quot;, `Distance Travelled`))
+
+# Get rid of the &#39; km&#39; and &#39;,&#39;
+nkDistance$`Distance Travelled` &lt;- gsub(&quot; km&quot;, &quot;&quot;, nkDistance$`Distance Travelled`)
+nkDistance$`Distance Travelled` &lt;- gsub(&quot;,&quot;, &quot;&quot;, nkDistance$`Distance Travelled`)
+
+# Convert to numeric
+nkDistance$`Distance Travelled` &lt;- as.numeric(as.character(nkDistance$`Distance Travelled`))</code></pre>
+<p>After this preliminary work we can use the distance and compare missile types.</p>
+<pre class="r"><code>nkDistance %&gt;%
+  ddply(.(`Missile Type`, `Missile Name`), summarise,
+        dist = mean(`Distance Travelled`)) %&gt;%
+  ggplot(aes(x = `Missile Type`, y = dist, fill = `Missile Name`)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .7, position = position_dodge()) +
+  theme_minimal() +
+  scale_fill_manual(values = getPalette(colourCount)) +
+  labs(x = NULL, y = NULL,
+       title = &quot;What is the distance they can travel&quot;,
+       subtitle = &quot;Based on the North Korean tests&quot;) +
+  theme(legend.title = element_blank())</code></pre>
+<p><img src="/post/2017-06-04-bombs-away_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>No surprise here, they all seem to travel short, intermediate, and medium distance as one could guess as per their name. Of course, if less tested, we rely on less data to estimate the mean, which therefore could not reflect the reality at all. Kim Jong-un favorite flavor of missile, the SRBM type, isn’t traveling long distance. Could this possibly be due the the numerous failures?</p>
+<pre class="r"><code>ddply(nkDistance, .(`Missile Type`, `Missile Name`), summarise,
+      Max.Distance = max(`Distance Travelled`))
+##    Missile Type Missile Name Max.Distance
+## 1          ICBM   Hwasong-14          998
+## 2          ICBM   Hwasong-15          950
+## 3          IRBM   Hwasong-12         3700
+## 4          IRBM      Musudan          400
+## 5          MRBM      ER Scud         1000
+## 6          MRBM       Nodong         1000
+## 7          MRBM    Polaris-2          500
+## 8          SLBM    Polaris-1          500
+## 9           SLV  Taepodong-1         1380
+## 10         SRBM       Scud-B          200
+## 11         SRBM  Scud-B MaRV          250
+## 12         SRBM       Scud-C          500
+## 13         SRBM  Scud-C MaRV          400</code></pre>
+<p>No! On the contrary they all seem to work pretty well.</p>
+</div>
+<div id="okay-planning-to-visit-the-country-anyway" class="section level1">
+<h1>Okay, planning to visit the country anyway?</h1>
+<p>Not a good idea, I warn you! If you really have to, what are the places to avoid the most. All of them, yes I know… But if you really, really have to, or want to and even if I doubt someone wants to do tourism there.</p>
+<p>If we want to find the places the missile tests are conducted we have to reorganize per <code>Facility</code> (and we will keep the <code>Leader</code> tag for the facet).</p>
+<pre class="r"><code>geoMissile &lt;- ddply(nkMissile, .(Leader, `Facility Name`, `Facility Longitude`, `Facility Latitude`), summarise,
+                    total = length(`Facility Location`))</code></pre>
+<p>We get a list of all the different sites used by the three leaders and their location.</p>
+<pre class="r"><code>geoMissile[, 2:4]
+##                         Facility Name Facility Longitude
+## 1                Chihari Missile Base 126.68470000000001
+## 2  Tonghae Satellite Launching Ground         129.666664
+## 3            Kittaeryong Missile Base           127.6236
+## 4  Tonghae Satellite Launching Ground         129.666664
+## 5                             Hwangju         125.702005
+## 6                             Kaesong           126.5878
+## 7            Kittaeryong Missile Base           127.6236
+## 8               Kusong Testing Ground 125.22302000000001
+## 9                        Lake Yonpung 125.80358510000001
+## 10                         Masikryong         127.250257
+## 11              Mupyong-ni Arms Plant         126.425743
+## 12                              Nampo 125.32470000000001
+## 13        North Kusong Testing Ground           125.2099
+## 14                       North Wonsan           127.5369
+## 15                           Panghyon         125.269192
+## 16                   Panghyon Airbase 125.20788899999999
+## 17                  Pukchang Airfield         125.964333
+## 18                    Pyongsong Field            125.869
+## 19    Pyongyang International Airport 125.67325599999999
+## 20                     Sinpo Shipyard 128.18389999999999
+## 21  Sohae Satellite Launching Station 124.70569999999999
+## 22                    Sunchon Airbase          125.89031
+## 23                            Unknown            Unknown
+## 24 Wonsan Kalma International Airport           127.4817
+##     Facility Latitude
+## 1  38.623330000000003
+## 2  40.849996599999997
+## 3  38.990830000000003
+## 4  40.849996599999997
+## 5  38.686833999999998
+## 6  37.938200000000002
+## 7  38.990830000000003
+## 8  40.013249999999999
+## 9  39.618282999999998
+## 10 39.065961999999999
+## 11 40.611207999999998
+## 12 38.752299999999998
+## 13 40.065899999999999
+## 14 39.401670000000003
+## 15 39.872152999999997
+## 16 39.927472000000002
+## 17 39.504416999999997
+## 18 39.281999999999996
+## 19 39.200158999999999
+## 20 40.036799999999999
+## 21 39.659599999999998
+## 22 39.412593999999999
+## 23            Unknown
+## 24 39.167700000000004</code></pre>
+<p>One <code>Unknown</code> though. See the issue coming? Rather delete it right away.</p>
+<pre class="r"><code>geoMissile &lt;- geoMissile[-which(geoMissile$`Facility Name` == &quot;Unknown&quot;),]</code></pre>
+<p>But that’s not enough! See the other issue coming?</p>
+<pre class="r"><code>class(geoMissile$`Facility Longitude`)
+## [1] &quot;character&quot;</code></pre>
+<p>Yes, you know the trick. Better do something right now.</p>
+<pre class="r"><code>geoMissile$`Facility Longitude` &lt;- as.numeric(as.character(geoMissile$`Facility Longitude`))
+geoMissile$`Facility Latitude` &lt;- as.numeric(as.character(geoMissile$`Facility Latitude`))</code></pre>
+<p>Okay, at least we can plot now. Let’s do it per <code>Leader</code> to really judge the difference.</p>
+<pre class="r"><code>qmplot(data = geoMissile,
+       x = `Facility Longitude`, y = `Facility Latitude`,
+       size = total, maptype = &quot;terrain&quot;, col = Leader, alpha = .25) +
+  theme(legend.position = &quot;none&quot;) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  facet_wrap(~Leader, ncol = 1) +
+  theme(strip.text.x = element_text(face=&quot;bold&quot;),
+        strip.background = element_blank())</code></pre>
+<p><img src="/post/2017-06-04-bombs-away_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>This time again, and even if Kim Jong-un does not seem to beat Kim Il-sung and Kim Jong-il in all categories, he is astonishingly perseverant. He is the only one testing all over the country!</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Alright, at a first glance it looks pretty clear. Since Kim Jong-un took over the leadership, missile tests are booming all over the country. He was able to test almost three times more missiles than both previous leaders together. That’s clearly an acceleration.</p>
+<p>Of course, I’ll have to check <a href="https://en.wikipedia.org">wikipedia</a> now as something is bothering me. What is the difference among all missiles? <a href="https://en.wikipedia.org/wiki/Medium-range_ballistic_missile">MRBM</a> and <a href="https://en.wikipedia.org/wiki/Short-range_ballistic_missile">SRBM</a> were used by the first leaders and are still the most tested by Kim Jong-un. Successfully fired some can already reach Japan.</p>
+<p>Among Kim Jong-un new toys are some <a href="https://en.wikipedia.org/wiki/Intermediate-range_ballistic_missile">IRBM</a>, <a href="https://en.wikipedia.org/wiki/Submarine-launched_ballistic_missile">SLBM</a>, and <a href="https://en.wikipedia.org/wiki/Satellite_Launch_Vehicle">SLV</a>. Not really good news for the rest of us as these clearly could lead to greater range and speed missiles than the North Korean currently possess, like <a href="https://en.wikipedia.org/wiki/Intercontinental_ballistic_missile">ICBM</a>.</p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/ggmap/">ggmap</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/ggplot2/">ggplot2</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/lubridate/">lubridate</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/10/german-federal-elections-regional-differences/" data-tooltip="German Federal Election&#39;s Regional Differences">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/beginners-guide-to-financial-report-with-r/" data-tooltip="Beginners&#39; Guide to Financial Report with R">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2017/06/bombs-away/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2017/06/bombs-away/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2017/06/bombs-away/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Christoph Freier. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/10/german-federal-elections-regional-differences/" data-tooltip="German Federal Election&#39;s Regional Differences">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/05/beginners-guide-to-financial-report-with-r/" data-tooltip="Beginners&#39; Guide to Financial Report with R">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2017/06/bombs-away/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2017/06/bombs-away/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2017/06/bombs-away/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2017%2F06%2Fbombs-away%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2017%2F06%2Fbombs-away%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2017%2F06%2Fbombs-away%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Christoph Freier</h4>
+    
+      <div id="about-card-bio">Hello, my name is Christoph Freier. Regularly, people stop me on the street and ask me <em>&ldquo;hey, what&rsquo;s your name?&rdquo;</em> I reply my name is Christoph Freier and I rock a great mustache.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        SaaS Application Consulting
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        I live in Berlin, Germany
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/03/to-eat-or-not-to-eat-that-is-the-question/">
+                <h3 class="media-heading">To Eat, or not to Eat, that is the Question</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Mar 3, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Mycology is the branch of biology concerned with the study of fungi, including their genetic and biochemical properties, their taxonomy and their use to humans as a source for tinder, medicine, food, and entheogens, as well as their dangers, such as toxicity or infection. It’s complicated and fascinating at the same time.
+I wasn’t particularly fond of it at the university.
+On the other hand I really enjoy eating mushroom. I normally buy them at the local market, so safety is no real concern of mine.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+                <h3 class="media-heading">Road Accidents and Safety Data in the United Kingdom</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via open data Europa.
+On data.gov.uk I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/10/german-federal-elections-regional-differences/">
+                <h3 class="media-heading">German Federal Election&#39;s Regional Differences</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">In Germany we organize an election to decide who is allowed to form a government with Angela Merkel every fourth year. It’s truly boring and generally without any surprises. At the end, she gets elected whatever happens. In fact, among the youngest Germans, most aren’t really sure whether a man can be chancellor or not.
+But this year was different. We had Martin Schulz, a man truly convinced he could take the leading role away from Angela Merkel and also the big comeback of Nazis.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/06/bombs-away/">
+                <h3 class="media-heading">Bombs Away!</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jun 6, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/05/beginners-guide-to-financial-report-with-r/">
+                <h3 class="media-heading">Beginners&#39; Guide to Financial Report with R</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I’ve been doing basic accounting for a while now and last year I discovered the simple, yet powerful application Debit &amp; Credit. I always thought it was a bit of a hassle, but ever since I’ve started to use it, I’ve been keeping track of every single expense. It does exactly what it tells: keeping financial records and never accessing my data. Of course this isn’t rocket science but it’s useful.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/06/wikipedia-hall-of-fame/">
+                <h3 class="media-heading">Wikipedia Hall of Fame</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jun 6, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I found this dataset at Harvard Dataverse - a collaboration with Harvard Library, Harvard University IT, and IQSS - about the most famous biographies present on Wikipedia. The Pantheon dataset is “a dataset of individuals that have transcended linguistic, temporal, and geographic boundaries.”
+It includes 11,341 biographies present in more than 25 languages on Wikipedia and is “enriched with: (i) manually verified demographic information (place and date of birth, gender); (ii) a taxonomy of occupations classifying each biography at three levels of aggregation; and (iii) two measures of global popularity including the number of languages in which a biography is present in Wikipedia (L), and the Historical Popularity Index (HPI) a metric that combines information on L, time since birth, and page-views (2008-2013).</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/05/how-to-select-a-reading-depending-on-your-state-of-mind/">
+                <h3 class="media-heading">How to Select a Reading Depending on your State of Mind</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Lately I’ve discovered sentiment analysis that combines natural language processing with text analysis to basically identify (and quantify!) feelings created by words. Some R packages like the syuzhet package are now available from the CRAN and doing your very own natural language analysis has never been so easy.
+Besides R packages, you will most certainly need some texts to analyze. For those of you who never heard about it, I would highly suggest having a look at the Project Gutenberg.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/04/public-health-data-from-the-who/">
+                <h3 class="media-heading">Public Health Data from the WHO</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Apr 4, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I’ve been looking for a simple and reliable access to public health data for a while now. Eventually, I bumped into the WHO package, which allows downloading directly from the World Health Organization’s Global Health Observatory in a dynamic and reproducible way. The data is accessible after you installed the package either from the CRAN or GitHub.
+# From CRAN install.packages(&quot;WHO&quot;) # From Github library(devtools) install_github(&quot;expersso/WHO&quot;) Nothing fancy and the rest is pretty straightforward too: only two functions necessary.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         8 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+
+  
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Natural Language Processing on In Code We Trust</title>
+    <link>/categories/natural-language-processing/</link>
+    <description>Recent content in Natural Language Processing on In Code We Trust</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 May 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/natural-language-processing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to Select a Reading Depending on your State of Mind</title>
+      <link>/2016/05/how-to-select-a-reading-depending-on-your-state-of-mind/</link>
+      <pubDate>Sun, 08 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/2016/05/how-to-select-a-reading-depending-on-your-state-of-mind/</guid>
+      <description>Lately I’ve discovered sentiment analysis that combines natural language processing with text analysis to basically identify (and quantify!) feelings created by words. Some R packages like the syuzhet package are now available from the CRAN and doing your very own natural language analysis has never been so easy.
+Besides R packages, you will most certainly need some texts to analyze. For those of you who never heard about it, I would highly suggest having a look at the Project Gutenberg.</description>
+    </item>
+    
+  </channel>
+</rss>

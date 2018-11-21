@@ -6,10 +6,49 @@
     <description>Recent content in Ggplot2 on In Code We Trust</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Jun 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Bombs Away!</title>
+      <link>/2017/06/bombs-away/</link>
+      <pubDate>Sun, 04 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/06/bombs-away/</guid>
+      <description>Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.</description>
+    </item>
+    
+    <item>
+      <title>Beginners&#39; Guide to Financial Report with R</title>
+      <link>/2017/05/beginners-guide-to-financial-report-with-r/</link>
+      <pubDate>Fri, 26 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/05/beginners-guide-to-financial-report-with-r/</guid>
+      <description>I’ve been doing basic accounting for a while now and last year I discovered the simple, yet powerful application Debit &amp;amp; Credit. I always thought it was a bit of a hassle, but ever since I’ve started to use it, I’ve been keeping track of every single expense. It does exactly what it tells: keeping financial records and never accessing my data. Of course this isn’t rocket science but it’s useful.</description>
+    </item>
+    
+    <item>
+      <title>Wikipedia Hall of Fame</title>
+      <link>/2016/06/wikipedia-hall-of-fame/</link>
+      <pubDate>Sun, 12 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/2016/06/wikipedia-hall-of-fame/</guid>
+      <description>I found this dataset at Harvard Dataverse - a collaboration with Harvard Library, Harvard University IT, and IQSS - about the most famous biographies present on Wikipedia. The Pantheon dataset is “a dataset of individuals that have transcended linguistic, temporal, and geographic boundaries.”
+It includes 11,341 biographies present in more than 25 languages on Wikipedia and is “enriched with: (i) manually verified demographic information (place and date of birth, gender); (ii) a taxonomy of occupations classifying each biography at three levels of aggregation; and (iii) two measures of global popularity including the number of languages in which a biography is present in Wikipedia (L), and the Historical Popularity Index (HPI) a metric that combines information on L, time since birth, and page-views (2008-2013).</description>
+    </item>
+    
+    <item>
+      <title>How to Select a Reading Depending on your State of Mind</title>
+      <link>/2016/05/how-to-select-a-reading-depending-on-your-state-of-mind/</link>
+      <pubDate>Sun, 08 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/2016/05/how-to-select-a-reading-depending-on-your-state-of-mind/</guid>
+      <description>Lately I’ve discovered sentiment analysis that combines natural language processing with text analysis to basically identify (and quantify!) feelings created by words. Some R packages like the syuzhet package are now available from the CRAN and doing your very own natural language analysis has never been so easy.
+Besides R packages, you will most certainly need some texts to analyze. For those of you who never heard about it, I would highly suggest having a look at the Project Gutenberg.</description>
+    </item>
     
     <item>
       <title>Public Health Data from the WHO</title>

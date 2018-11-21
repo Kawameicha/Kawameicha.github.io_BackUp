@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ggmap on In Code We Trust</title>
+    <link>/tags/ggmap/</link>
+    <description>Recent content in Ggmap on In Code We Trust</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Jun 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/ggmap/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bombs Away!</title>
+      <link>/2017/06/bombs-away/</link>
+      <pubDate>Sun, 04 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/06/bombs-away/</guid>
+      <description>Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.</description>
+    </item>
+    
+  </channel>
+</rss>

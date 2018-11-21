@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.41 with theme Tranquilpeak 0.4.3-SNAPSHOT">
+<meta name="author" content="Christoph Freier">
+<meta name="keywords" content=", rstats, data science">
+<meta name="description" content="Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via open data Europa.
+On data.gov.uk I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties.">
+
+
+<meta property="og:description" content="Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via open data Europa.
+On data.gov.uk I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Road Accidents and Safety Data in the United Kingdom">
+<meta name="twitter:title" content="Road Accidents and Safety Data in the United Kingdom">
+<meta property="og:url" content="/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+<meta property="twitter:url" content="/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+<meta property="og:site_name" content="In Code We Trust">
+<meta property="og:description" content="Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via open data Europa.
+On data.gov.uk I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties.">
+<meta name="twitter:description" content="Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via open data Europa.
+On data.gov.uk I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties.">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2018-01-09T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2018-01-09T00:00:00">
+  
+  
+  
+    
+      <meta property="article:section" content="Descriptive Statistics">
+    
+      <meta property="article:section" content="Beautiful Evidence">
+    
+  
+  
+    
+      <meta property="article:tag" content="tidyverse">
+    
+      <meta property="article:tag" content="gridExtra">
+    
+      <meta property="article:tag" content="lubridate">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@ChristophFreier">
+
+
+  <meta name="twitter:creator" content="@ChristophFreier">
+
+
+
+
+
+
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/New_Zealand_PW-41.svg/120px-New_Zealand_PW-41.svg.png">
+  <meta property="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/New_Zealand_PW-41.svg/120px-New_Zealand_PW-41.svg.png">
+
+
+  <meta property="og:image" content="http://www.eltis.org/sites/default/files/styles/threshold-1382/public/news/think_-_road_safety_sign_original.jpg?itok=mgokHhWw">
+  <meta property="twitter:image" content="http://www.eltis.org/sites/default/files/styles/threshold-1382/public/news/think_-_road_safety_sign_original.jpg?itok=mgokHhWw">
+
+
+
+
+  <meta property="og:image" content="/image/bio.jpg">
+  <meta property="twitter:image" content="/image/bio.jpg">
+
+
+    <title>Road Accidents and Safety Data in the United Kingdom</title>
+
+    <link rel="icon" href="image/favicon.ico">
+    
+
+    
+
+    <link rel="canonical" href="/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-nnm2spxvve8onlujjlegkkytaehyadd4ksxc1hyzzq9a2wvtrgbljqyulomn.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">In Code We Trust</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Christoph Freier</h4>
+        
+          <h5 class="sidebar-profile-bio">Hello, my name is Christoph Freier. Regularly, people stop me on the street and ask me <em>&ldquo;hey, what&rsquo;s your name?&rdquo;</em> I reply my name is Christoph Freier and I rock a great mustache.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/page/useful-resources">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+      
+      <span class="sidebar-button-desc">Resources</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/page/about-me">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-user"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kawameicha">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gitlab.com/kawameicha">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-gitlab"></i>
+      
+      <span class="sidebar-button-desc">Gitlab</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/christophfreier/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/ChristophFreier">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="mailto:christoph@freier.fr" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-envelope"></i>
+      
+      <span class="sidebar-button-desc">Email me</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+  <div class="post-header-cover
+              text-left
+              post-header-cover--partial"
+       style="background-image:url('http://www.eltis.org/sites/default/files/styles/threshold-1382/public/news/think_-_road_safety_sign_original.jpg?itok=mgokHhWw')"
+       data-behavior="5">
+    
+      <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Road Accidents and Safety Data in the United Kingdom
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-01-09T00:00:00Z">
+        
+  
+  
+  
+  
+    Jan 9, 2018
+  
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/descriptive-statistics">Descriptive Statistics</a>, 
+    
+      <a class="category-link" href="/categories/beautiful-evidence">Beautiful Evidence</a>
+    
+  
+
+  </div>
+
+</div>
+    
+  </div>
+
+
+      <div id="main" data-behavior="5"
+        class="hasCover
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via <a href="https://open-data.europa.eu/en/data/">open data Europa</a>.</p>
+<p>On <a href="https://data.gov.uk">data.gov.uk</a> I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties. The data relate only to personal injury accidents on public roads that are reported to the police, and subsequently recorded, using the STATS19 accident reporting form.</p>
+<p>Data, however, isn’t <em>per se</em> information neither does this information transform by itself into knowledge so I propose we have a look at it. There are probably some trends for accidents involving the different road users and maybe we can check if road safety campaigns are effective.</p>
+<div id="read-the-data" class="section level1">
+<h1>Read the data</h1>
+<p>I’m using here a concatenated dataset including all recorded accidents from 2005 to 2015 and composed of three .csv files: (i) accident circumstances, with details about location, severity, weather, <em>etc</em>; (ii) casualties, referencing knowledge about the victims; and (iii) vehicles, which contains more information about the vehicle type and maneuvers, as well the some information about the driver.</p>
+<p>I’d recommend that we use <code>read_csv</code>, which is significantly faster than <code>read.csv</code>. When it comes to files this size, it starts to matter.</p>
+<pre class="r"><code># Read the three tables
+accidents0515 &lt;- read_csv(&quot;../data/Accidents0515.csv&quot;)
+casualties0515 &lt;- read_csv(&quot;../data/Casualties0515.csv&quot;)
+vehicles0515 &lt;- read_csv(&quot;../data/Vehicles0515.csv&quot;)</code></pre>
+<p>Right now, all this data is still like frozen knowledge - all variables are coded rather than containing textual strings; and if we want to make sense out of it we will need to have a look at the look up tables, which are also available towards the bottom of the webpage.</p>
+<p>We don’t need to open this file here, but I found it extremely useful, when not simply compulsory to quickly localize and decode all the variables. Sometimes, you have to somehow torture your data a little bit to extract the information out of it (rhetorically, no data were harmed during the redaction of this post - editor’s note).</p>
+</div>
+<div id="what-can-we-learn-from-the-vehicles" class="section level1">
+<h1>What can we learn from the vehicles?</h1>
+<p>This data is already extremely well organized, so there is no need for an extensive wrangling work. It contains 3.3 million vehicles implicated in accidents over the 10 year period and 22 variables that we simply have to decode. That’s generally something which can be done quickly using <code>%&gt;%</code> before injecting the result to <code>ggplot2</code>. But let’s do it here once for the vehicle type as this is something that we are going to use quite often.</p>
+<p>I want to keep only the five most common types here. My guess is that we can reasonably assume that trams, ridden horses, and agricultural vehicles can be regrouped altogether under others.</p>
+<pre class="r"><code># Decode Vehicle_Type
+vehicles0515$Vehicle &lt;- ifelse(vehicles0515$Vehicle_Type == 1, &quot;Bicycle&quot;,
+                               ifelse(vehicles0515$Vehicle_Type %in% c(2:5, 97), &quot;Motorcycle&quot;,
+                               ifelse(vehicles0515$Vehicle_Type %in% c(8:9), &quot;Car&quot;,
+                               ifelse(vehicles0515$Vehicle_Type %in% c(10:11), &quot;Bus&quot;,
+                               ifelse(vehicles0515$Vehicle_Type %in% c(19:21, 98), &quot;Truck&quot;, &quot;Others&quot;)))))</code></pre>
+<p>Since we get a chance to, let’s also arrange them and convert this to a factor.</p>
+<pre class="r"><code># Create and arrange levels
+levels &lt;- vehicles0515 %&gt;%
+  group_by(Vehicle) %&gt;%
+  summarise(n = n()) %&gt;%
+  arrange(desc(n))
+
+# Convert to factor
+vehicles0515$Vehicle &lt;- factor(vehicles0515$Vehicle, levels = levels$Vehicle)</code></pre>
+<p>Alright, now to get the total number of vehicles implicated in traffic collisions, we need to <code>group_by</code> vehicle and summaries only. Let’s save the result for later on.</p>
+<pre class="r"><code>vehTot &lt;- vehicles0515 %&gt;%
+  group_by(Vehicle) %&gt;%
+  summarise(n = n()) %&gt;%
+  ggplot(aes(x = Vehicle, y = n, fill = Vehicle)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .5, position = position_dodge()) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  scale_x_discrete(limits = rev(levels(vehicles0515$Vehicle))) +
+  coord_flip() +
+  theme_minimal() +
+  theme(legend.position = &quot;none&quot;) +
+  labs(x = NULL, y = NULL,
+       title = &quot;&quot;,
+       subtitle = &quot;a. Vehicle implied in traffic collisions (total)&quot;)</code></pre>
+<p>We do have the vehicle reference number, <em>i.e.</em> was it the first one, the second, <em>etc</em>. We can <code>group_by</code> vehicle reference too and <code>mutate</code> to get a percentage.</p>
+<pre class="r"><code>vehNum &lt;- vehicles0515 %&gt;%
+  count(Vehicle, Vehicle_Reference) %&gt;%
+  ungroup %&gt;%
+  group_by(Vehicle) %&gt;%
+  mutate(p = n/sum(n)) %&gt;%
+  filter(Vehicle_Reference &lt;= 3) %&gt;%
+  ggplot(aes(x = Vehicle_Reference, y = p, fill = Vehicle)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .5, position = position_dodge()) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  scale_x_continuous(breaks = c(1, 2, 3), labels = c(&quot;#1&quot;, &quot;#2&quot;, &quot;#3&quot;)) +
+  scale_y_continuous(labels = percent) +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank()) +
+  theme(legend.position = &quot;none&quot;) +
+  labs(x = NULL, y = NULL,
+       title = &quot;&quot;,
+       subtitle = &quot;b. Implication as vehicle number&quot;) +
+  facet_wrap(~Vehicle)</code></pre>
+<p>Also available is the first point of impact, that is where the vehicle was hit first. If we <code>group_by</code> <code>1st_Point_of_Impact</code> and <code>mutate</code> we get a percentage of it.</p>
+<pre class="r"><code>vehImp &lt;- vehicles0515 %&gt;%
+  count(Vehicle, `1st_Point_of_Impact`) %&gt;%
+  ungroup %&gt;%
+  group_by(Vehicle) %&gt;%
+  mutate(p = n/sum(n)) %&gt;%
+  filter(`1st_Point_of_Impact` &gt; 0) %&gt;%
+  ggplot(aes(x = `1st_Point_of_Impact`, y = p, fill = Vehicle)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .5, position = position_dodge()) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  scale_x_continuous(breaks = c(1, 2, 3, 4), labels = c(&quot;Front&quot;, &quot;Back&quot;, &quot;Offside&quot;, &quot;Nearside&quot;)) +
+  scale_y_continuous(labels = percent) +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank()) +
+  theme(legend.position = &quot;none&quot;,
+        axis.text.x = element_text(angle = 45, vjust = 0.5)) +
+  labs(x = NULL, y = NULL,
+       title = &quot;&quot;,
+       subtitle = &quot;c. First point of impact&quot;) +
+  facet_wrap(~Vehicle)</code></pre>
+<p>Okay, let’s organize this into a first layout.</p>
+<pre class="r"><code># Define position of each element in the layout
+layVeh &lt;- rbind(c(1, 2), c(1, 3))
+
+# Arrange all figure on a grid
+grid.arrange(vehTot, vehNum, vehImp, layout_matrix = layVeh)</code></pre>
+<p><img src="/post/2018-01-09-road-accidents-and-safety-data-in-the-united-kingdom-part-i_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Oh boy! That is what I call data nicely transformed into information. Let me highlight a few things here. First, without knowing the total number of vehicles circulating on English roads, I cannot normalize a. and cars won hands down because they are overrepresented. Also it was totally fine to add horses and trams under <code>others</code> as the category ranks dead last. This confirms my assumption that both are very safe in the United Kingdom. In fact, I haven’t been able to find a single collision between a horse and a tram in ten years.</p>
+<p>The vehicle reference number b. and the first point of impact c. help to nicely reveal the differences between four wheel vehicles and the two wheeled ones. Cyclists were clearly being hit by others rather than causing the accident themselves and have along with motorcyclists more side collisions than car and trucks, whereas buses clearly less frontal ones.</p>
+</div>
+<div id="what-about-the-driver" class="section level1">
+<h1>What about the driver</h1>
+<p>Behind the driving wheel, there is the driver’s age we can have a look at as well. The code is more or less the same just adapted to get it with <code>geom_line</code>.</p>
+<pre class="r"><code>vehAge &lt;- vehicles0515 %&gt;%
+  count(Vehicle, Age_of_Driver) %&gt;%
+  ungroup %&gt;%
+  group_by(Vehicle) %&gt;%
+  mutate(p = n/sum(n)) %&gt;%
+  filter(Age_of_Driver &gt; 0) %&gt;%
+  ggplot(aes(x = Age_of_Driver, y = p, fill = Vehicle)) +
+  geom_line(size = .7, alpha = .7) +
+  geom_ribbon(aes(ymin = 0, ymax = p), alpha = .3) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  scale_y_continuous(labels = percent) +
+  theme_minimal() +
+  labs(x = NULL, y = NULL,
+       title = &quot;&quot;,
+       subtitle = &quot;d. Driver&#39;s age&quot;) +
+  theme(legend.position = &quot;none&quot;) +
+  facet_wrap(~Vehicle, ncol = 6)</code></pre>
+<p>And of course the driver’s sex. Note that I’ve been removing all the unknown values since the beginning using <code>filter</code>. I’ve calculated the percentage before though.</p>
+<pre class="r"><code>vehSex &lt;- vehicles0515 %&gt;%
+  count(Vehicle, Sex_of_Driver) %&gt;%
+  ungroup %&gt;%
+  group_by(Vehicle) %&gt;%
+  mutate(p = n/sum(n)) %&gt;%
+  filter(Sex_of_Driver %in% 1:2) %&gt;%
+  ggplot(aes(x = Sex_of_Driver, y = p, fill = Vehicle)) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .5, position = position_dodge()) +
+  theme_minimal() +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  scale_x_continuous(breaks = c(1, 2), labels=c(&quot;Male&quot;, &quot;Female&quot;)) +
+  scale_y_continuous(labels = percent) +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank()) +
+  labs(x = NULL, y = NULL,
+       title = &quot;&quot;,
+       subtitle = &quot;e. Driver&#39;s sex&quot;) +
+  theme(legend.position = &quot;none&quot;) +
+  facet_wrap(~Vehicle, ncol = 6)</code></pre>
+<p>Time to organize this into a second layout.</p>
+<pre class="r"><code># Define position of each element in the layout
+layDri &lt;- rbind(c(1, 1), c(2, 2))
+
+# Arrange all figure on a grid
+grid.arrange(vehAge, vehSex, layout_matrix = layDri)</code></pre>
+<p><img src="/post/2018-01-09-road-accidents-and-safety-data-in-the-united-kingdom-part-i_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>The driver’s age figure d. reflects the risks taken by young people with bicycles, cars and particularly motorcycles. There is a small peak for teenagers riding a bike just before this gets transferred to cars and motorbikes around 20. The latter one being really impressive. We can also see truckers and probably bus drivers getting retired after 60.</p>
+<p>Among all the figures here, e. is probably the most impressive one. If there is one thing that women can do better than men, it’s definitively driving! Although I’d like to shortly advocate for my gender and add that there are probably more women who drive a car than a truck and that’s where we score the best (read ‘less bad’ instead if you don’t feel like playing the devil’s advocate).</p>
+</div>
+<div id="what-about-the-others" class="section level1">
+<h1>What about the others</h1>
+<p>If you have a glimpse at the casualty report, you will see that this contains 2.4 million people, who were injured or killed during that time. The organization of the variable is the same, so there is no need to change many things before we can play with it. Note that I’m not spending time decoding the variables beforehand anymore, I simply use <code>as.factor</code> and set the labels manually.</p>
+<p>We can first check if the person who got injured was the driver, a passenger, or a pedestrian and save the results for another layout.</p>
+<pre class="r"><code>casCla &lt;- casualties0515 %&gt;%
+  group_by(Casualty_Class) %&gt;%
+  summarise(n = n()) %&gt;%
+  ggplot(aes(x = Casualty_Class, y = n, fill = as.factor(Casualty_Class))) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .5, position = position_dodge()) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  scale_x_continuous(breaks = c(1, 2, 3), labels = c(&quot;Driver&quot;, &quot;Passenger&quot;, &quot;Pedestrian&quot;)) +
+  coord_flip() +
+  theme_minimal() +
+  theme(legend.position = &quot;none&quot;) +
+  labs(x = NULL, y = NULL,
+       title = &quot;&quot;,
+       subtitle = &quot;f. Casualty class in traffic collisions (total)&quot;)</code></pre>
+<p>Then take a look at the severity, <em>i.e.</em> was that person fatally, seriously, or only slightly injured in the collision.</p>
+<pre class="r"><code>casSev &lt;- casualties0515 %&gt;%
+  group_by(Casualty_Severity) %&gt;%
+  summarise(n = n()) %&gt;%
+  ggplot(aes(x = Casualty_Severity, y = n, fill = as.factor(Casualty_Severity))) +
+  geom_bar(stat = &quot;identity&quot;, alpha = .5, position = position_dodge()) +
+  scale_fill_brewer(palette = &quot;Set1&quot;)  +
+  scale_x_continuous(breaks = c(1, 2, 3), labels = c(&quot;Fatal&quot;, &quot;     Serious&quot;, &quot;Slight&quot;)) +
+  coord_flip() +
+  theme_minimal() +
+  theme(legend.position = &quot;none&quot;) +
+  labs(x = NULL, y = NULL,
+       title = &quot;&quot;,
+       subtitle = &quot;g. Casualty severity in traffic collisions (total)&quot;)</code></pre>
+<p>And finally, at the casualty’s age. Here we can further distinguish between male and female as we have observed a gender difference previously.</p>
+<pre class="r"><code>casAge &lt;- casualties0515 %&gt;%
+  count(Sex_of_Casualty, Age_of_Casualty) %&gt;%
+  ungroup %&gt;%
+  group_by(Sex_of_Casualty) %&gt;%
+  mutate(p = n/sum(n)) %&gt;%
+  filter(Age_of_Casualty &gt;= 0) %&gt;%
+  filter(Sex_of_Casualty &gt;= 0) %&gt;%
+  mutate(Sex = ifelse(Sex_of_Casualty == 1, &quot;Male&quot;, &quot;Female&quot;)) %&gt;%
+  ggplot(aes(x = Age_of_Casualty, y = p, fill = as.factor(Sex))) +
+  geom_line(size = .7, alpha = .7) +
+  geom_ribbon(aes(ymin = 0, ymax = p), alpha = .3) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  scale_y_continuous(labels = percent) +
+  theme_minimal() +
+  labs(x = NULL, y = NULL,
+       title = &quot;&quot;,
+       subtitle = &quot;h. Casualty&#39;s age&quot;) +
+  theme(legend.position = &quot;none&quot;) +
+  facet_wrap(~Sex, ncol = 1)</code></pre>
+<p>And today’s last layout.</p>
+<pre class="r"><code># Define position of each element in the layout
+layCas &lt;- rbind(c(1, 3), c(2, 3))
+
+# Arrange all figure on a grid
+grid.arrange(casCla, casSev, casAge, layout_matrix = layCas)</code></pre>
+<p><img src="/post/2018-01-09-road-accidents-and-safety-data-in-the-united-kingdom-part-i_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Alright, there is no real surprise here. The casualty class figure f. isn’t normalizable either and mainly shows here that there is always a driver in the vehicle. That’s rather fortunate and somehow highlights the fact that there is a human implied in all these accidents. Cars don’t get involved themselves, at least for now and until we get self-driving cars.</p>
+<p>The casualty severity figure g. shows that most injuries are slight ones, which is extremely fortunate too. It would be interesting to have a look at this over time, to check if this has changed over the ten year period but this is something I’m working on for part II of this series. Figure h. highlights, again, the risk taken by young people and shows that unlike the driver’s sex, the casualty distribution over time isn’t different for men and women.</p>
+</div>
+<div id="time-to-wrap-up-for-now" class="section level1">
+<h1>Time to wrap up for now</h1>
+<p>I cannot really say I’ve learned a lot from this data yet as everything seems to be common knowledge already. Yes, there are more cars on the road than any other vehicle and mainly, we drive forwards, so hits are more frequently frontal. Okay, but we’ve also observed the really impressive difference per driver’s sex. I wouldn’t claim that I wasn’t aware of this but I must confess that I didn’t know it was so dramatic. However, when it comes to casualty in collisions, only age matter.</p>
+<p>That young people on a motorcycle get more involved in accident before they reach the age of 25 isn’t really a surprise but still impressive. Like bicycle, but not quite as much, they’re also more involved as the second vehicle. Being hit rather than causing the accident themselves. Of course it might be that you’ve taken more or less risk on your bicycle before being hit and this could then correlate with the age or sex of the biker. But again, this is something I’d like to work on in part II.</p>
+<p>Finally, and even if all this seems kind of intuitive, it feels much more real now that I’ve done the analysis for myself. Once thawed, data can really help make up your mind.</p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/tidyverse/">tidyverse</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/gridextra/">gridExtra</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/lubridate/">lubridate</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/to-eat-or-not-to-eat-that-is-the-question/" data-tooltip="To Eat, or not to Eat, that is the Question">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/10/german-federal-elections-regional-differences/" data-tooltip="German Federal Election&#39;s Regional Differences">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Christoph Freier. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/to-eat-or-not-to-eat-that-is-the-question/" data-tooltip="To Eat, or not to Eat, that is the Question">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/10/german-federal-elections-regional-differences/" data-tooltip="German Federal Election&#39;s Regional Differences">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F01%2Froad-accidents-and-safety-data-in-the-united-kingdom%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2018%2F01%2Froad-accidents-and-safety-data-in-the-united-kingdom%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2018%2F01%2Froad-accidents-and-safety-data-in-the-united-kingdom%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Christoph Freier</h4>
+    
+      <div id="about-card-bio">Hello, my name is Christoph Freier. Regularly, people stop me on the street and ask me <em>&ldquo;hey, what&rsquo;s your name?&rdquo;</em> I reply my name is Christoph Freier and I rock a great mustache.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        SaaS Application Consulting
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        I live in Berlin, Germany
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/03/to-eat-or-not-to-eat-that-is-the-question/">
+                <h3 class="media-heading">To Eat, or not to Eat, that is the Question</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Mar 3, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Mycology is the branch of biology concerned with the study of fungi, including their genetic and biochemical properties, their taxonomy and their use to humans as a source for tinder, medicine, food, and entheogens, as well as their dangers, such as toxicity or infection. It’s complicated and fascinating at the same time.
+I wasn’t particularly fond of it at the university.
+On the other hand I really enjoy eating mushroom. I normally buy them at the local market, so safety is no real concern of mine.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+                <h3 class="media-heading">Road Accidents and Safety Data in the United Kingdom</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via open data Europa.
+On data.gov.uk I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/10/german-federal-elections-regional-differences/">
+                <h3 class="media-heading">German Federal Election&#39;s Regional Differences</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">In Germany we organize an election to decide who is allowed to form a government with Angela Merkel every fourth year. It’s truly boring and generally without any surprises. At the end, she gets elected whatever happens. In fact, among the youngest Germans, most aren’t really sure whether a man can be chancellor or not.
+But this year was different. We had Martin Schulz, a man truly convinced he could take the leading role away from Angela Merkel and also the big comeback of Nazis.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/06/bombs-away/">
+                <h3 class="media-heading">Bombs Away!</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jun 6, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/05/beginners-guide-to-financial-report-with-r/">
+                <h3 class="media-heading">Beginners&#39; Guide to Financial Report with R</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I’ve been doing basic accounting for a while now and last year I discovered the simple, yet powerful application Debit &amp; Credit. I always thought it was a bit of a hassle, but ever since I’ve started to use it, I’ve been keeping track of every single expense. It does exactly what it tells: keeping financial records and never accessing my data. Of course this isn’t rocket science but it’s useful.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/06/wikipedia-hall-of-fame/">
+                <h3 class="media-heading">Wikipedia Hall of Fame</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jun 6, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I found this dataset at Harvard Dataverse - a collaboration with Harvard Library, Harvard University IT, and IQSS - about the most famous biographies present on Wikipedia. The Pantheon dataset is “a dataset of individuals that have transcended linguistic, temporal, and geographic boundaries.”
+It includes 11,341 biographies present in more than 25 languages on Wikipedia and is “enriched with: (i) manually verified demographic information (place and date of birth, gender); (ii) a taxonomy of occupations classifying each biography at three levels of aggregation; and (iii) two measures of global popularity including the number of languages in which a biography is present in Wikipedia (L), and the Historical Popularity Index (HPI) a metric that combines information on L, time since birth, and page-views (2008-2013).</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/05/how-to-select-a-reading-depending-on-your-state-of-mind/">
+                <h3 class="media-heading">How to Select a Reading Depending on your State of Mind</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Lately I’ve discovered sentiment analysis that combines natural language processing with text analysis to basically identify (and quantify!) feelings created by words. Some R packages like the syuzhet package are now available from the CRAN and doing your very own natural language analysis has never been so easy.
+Besides R packages, you will most certainly need some texts to analyze. For those of you who never heard about it, I would highly suggest having a look at the Project Gutenberg.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/04/public-health-data-from-the-who/">
+                <h3 class="media-heading">Public Health Data from the WHO</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Apr 4, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I’ve been looking for a simple and reliable access to public health data for a while now. Eventually, I bumped into the WHO package, which allows downloading directly from the World Health Organization’s Global Health Observatory in a dynamic and reproducible way. The data is accessible after you installed the package either from the CRAN or GitHub.
+# From CRAN install.packages(&quot;WHO&quot;) # From Github library(devtools) install_github(&quot;expersso/WHO&quot;) Nothing fancy and the rest is pretty straightforward too: only two functions necessary.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         8 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+
+  
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

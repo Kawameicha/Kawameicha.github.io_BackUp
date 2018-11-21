@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gridextra on In Code We Trust</title>
+    <link>/tags/gridextra/</link>
+    <description>Recent content in Gridextra on In Code We Trust</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/gridextra/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Road Accidents and Safety Data in the United Kingdom</title>
+      <link>/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/</link>
+      <pubDate>Tue, 09 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/</guid>
+      <description>Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via open data Europa.
+On data.gov.uk I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties.</description>
+    </item>
+    
+    <item>
+      <title>German Federal Election&#39;s Regional Differences</title>
+      <link>/2017/10/german-federal-elections-regional-differences/</link>
+      <pubDate>Fri, 06 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/10/german-federal-elections-regional-differences/</guid>
+      <description>In Germany we organize an election to decide who is allowed to form a government with Angela Merkel every fourth year. It’s truly boring and generally without any surprises. At the end, she gets elected whatever happens. In fact, among the youngest Germans, most aren’t really sure whether a man can be chancellor or not.
+But this year was different. We had Martin Schulz, a man truly convinced he could take the leading role away from Angela Merkel and also the big comeback of Nazis.</description>
+    </item>
+    
+  </channel>
+</rss>
