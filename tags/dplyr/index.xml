@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dplyr on In Code We Trust</title>
+    <link>/tags/dplyr/</link>
+    <description>Recent content in Dplyr on In Code We Trust</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/dplyr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Public Health Data from the WHO</title>
+      <link>/2016/04/public-health-data-from-the-who/</link>
+      <pubDate>Tue, 26 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/2016/04/public-health-data-from-the-who/</guid>
+      <description>I’ve been looking for a simple and reliable access to public health data for a while now. Eventually, I bumped into the WHO package, which allows downloading directly from the World Health Organization’s Global Health Observatory in a dynamic and reproducible way. The data is accessible after you installed the package either from the CRAN or GitHub.
+# From CRAN install.packages(&amp;quot;WHO&amp;quot;) # From Github library(devtools) install_github(&amp;quot;expersso/WHO&amp;quot;) Nothing fancy and the rest is pretty straightforward too: only two functions necessary.</description>
+    </item>
+    
+  </channel>
+</rss>
