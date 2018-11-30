@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.41 with theme Tranquilpeak 0.4.3-SNAPSHOT">
+<meta name="author" content="Christoph Freier">
+<meta name="keywords" content=", rstats, data science">
+<meta name="description" content="A blog by Christoph Freier">
+
+
+<meta property="og:description" content="A blog by Christoph Freier">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Machine Learning">
+<meta name="twitter:title" content="Machine Learning">
+<meta property="og:url" content="/categories/machine-learning/">
+<meta property="twitter:url" content="/categories/machine-learning/">
+<meta property="og:site_name" content="In Code We Trust">
+<meta property="og:description" content="A blog by Christoph Freier">
+<meta name="twitter:description" content="A blog by Christoph Freier">
+<meta property="og:locale" content="en-us">
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@ChristophFreier">
+
+
+  <meta name="twitter:creator" content="@ChristophFreier">
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="/image/bio.jpg">
+  <meta property="twitter:image" content="/image/bio.jpg">
+
+
+    <title>Machine Learning</title>
+
+    <link rel="icon" href="image/favicon.ico">
+    
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="/categories/machine-learning/index.xml">
+    
+
+    
+
+    <link rel="canonical" href="/categories/machine-learning/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-nnm2spxvve8onlujjlegkkytaehyadd4ksxc1hyzzq9a2wvtrgbljqyulomn.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="2">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">In Code We Trust</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="2">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Christoph Freier</h4>
+        
+          <h5 class="sidebar-profile-bio">Hello, my name is Christoph Freier. Regularly, people stop me on the street and ask me <em>&ldquo;hey, what&rsquo;s your name?&rdquo;</em> I reply my name is Christoph Freier and I rock a great mustache.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/page/useful-resources">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+      
+      <span class="sidebar-button-desc">Resources</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/page/about-me">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-user"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/kawameicha">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/10705596/christoph-freier">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://www.linkedin.com/in/christophfreier/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+      
+      <span class="sidebar-button-desc">LinkedIn</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/ChristophFreier">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="mailto:christoph@freier.fr" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-envelope"></i>
+      
+      <span class="sidebar-button-desc">Email me</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+
+    </ul>
+  </div>
+</nav>
+
+      
+        
+
+      
+      <div id="main" data-behavior="2"
+        class="
+               hasCoverMetaIn
+               ">
+        
+          <section class="postShorten-group main-content-wrap">
+            
+            
+              
+  
+    
+  
+
+
+  
+
+<article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+  <div class="postShorten-wrap">
+    
+    <div class="postShorten-header">
+      <h1 class="postShorten-title" itemprop="headline">
+        <a class="link-unstyled" href="/2018/11/my-heart-will-go-down/">
+          My Heart Will Go Down
+        </a>
+      </h1>
+      
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-11-30T00:00:00Z">
+        
+  
+  
+  
+  
+    Nov 30, 2018
+  
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/machine-learning">Machine Learning</a>, 
+    
+      <a class="category-link" href="/categories/binary-classification">Binary Classification</a>
+    
+  
+
+  </div>
+
+    </div>
+    <div class="postShorten-excerpt" itemprop="articleBody">
+      
+        All has been said, so let&rsquo;s call it an introduction to machine learning.
+      
+      <p>
+        <a href="/2018/11/my-heart-will-go-down/" class="postShorten-excerpt_link link">Continue reading</a>
+        
+      </p>
+    </div>
+  </div>
+  
+    <a href="/2018/11/my-heart-will-go-down/">
+      <div class="postShorten-thumbnailimg">
+        <img alt="" itemprop="image" src="https://images-na.ssl-images-amazon.com/images/I/51S2KRQm-2L._AC_UL160_SR160,160_.jpg"/>
+      </div>
+    </a>
+  
+</article>
+
+            
+            
+
+          </section>
+        
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2018 Christoph Freier. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="/image/bio.jpg" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Christoph Freier</h4>
+    
+      <div id="about-card-bio">Hello, my name is Christoph Freier. Regularly, people stop me on the street and ask me <em>&ldquo;hey, what&rsquo;s your name?&rdquo;</em> I reply my name is Christoph Freier and I rock a great mustache.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        SaaS Application Consulting
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        I live in Berlin, Germany
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/11/my-heart-will-go-down/">
+                <h3 class="media-heading">My Heart Will Go Down</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Nov 11, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">The sinking of the RMS Titanic on April 15, 1912 after colliding with an iceberg during her maiden voyage from Southampton to New York City is one of the most infamous shipwrecks in history. It is one of the deadliest commercial peacetime maritime disasters in modern history killing 1502 out of 2224 passengers and crew and this sensational tragedy shocked the international community. Both Thomas Andrews, her architect and Capt. Edward Smith, who was in command went down with the ship.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/03/to-eat-or-not-to-eat-that-is-the-question/">
+                <h3 class="media-heading">To Eat, or not to Eat, that is the Question</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Mar 3, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Mycology is the branch of biology concerned with the study of fungi, including their genetic and biochemical properties, their taxonomy and their use to humans as a source for tinder, medicine, food, and entheogens, as well as their dangers, such as toxicity or infection. It’s complicated and fascinating at the same time.
+I wasn’t particularly fond of it at the university.
+On the other hand I really enjoy eating mushroom. I normally buy them at the local market, so safety is no real concern of mine.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2018/01/road-accidents-and-safety-data-in-the-united-kingdom/">
+                <h3 class="media-heading">Road Accidents and Safety Data in the United Kingdom</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jan 1, 2018
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Many thousands of datasets are being published and regularly updated by government departments and agencies, public bodies or local authorities. Anybody can use this data to learn more about how government works, carry out research or build applications and services. All the data is made available through different datahubs and centralized in Europe via open data Europa.
+On data.gov.uk I’ve found files providing detailed road safety data about the circumstances of personal injury road accidents in Great Britain and the consequential casualties.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/10/german-federal-elections-regional-differences/">
+                <h3 class="media-heading">German Federal Election&#39;s Regional Differences</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Oct 10, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">In Germany we organize an election to decide who is allowed to form a government with Angela Merkel every fourth year. It’s truly boring and generally without any surprises. At the end, she gets elected whatever happens. In fact, among the youngest Germans, most aren’t really sure whether a man can be chancellor or not.
+But this year was different. We had Martin Schulz, a man truly convinced he could take the leading role away from Angela Merkel and also the big comeback of Nazis.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/06/bombs-away/">
+                <h3 class="media-heading">Bombs Away!</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jun 6, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Okay, my last post wasn’t really rocket science but did you ever heard about the James Martin Center for Nonproliferation Studies North Korea Missile Test Database? This is the “first database to record flight tests of all missiles launched by North Korea capable of delivering a payload of at least 500 kilograms (1102.31 pounds) a distance of at least 300 kilometers (186.4 miles).”
+Unfortunately, it has become quite clear that the North Korea’s missile program has accelerated and made substantial progress over the past couple of years.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/05/beginners-guide-to-financial-report-with-r/">
+                <h3 class="media-heading">Beginners&#39; Guide to Financial Report with R</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I’ve been doing basic accounting for a while now and last year I discovered the simple, yet powerful application Debit &amp; Credit. I always thought it was a bit of a hassle, but ever since I’ve started to use it, I’ve been keeping track of every single expense. It does exactly what it tells: keeping financial records and never accessing my data. Of course this isn’t rocket science but it’s useful.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/06/wikipedia-hall-of-fame/">
+                <h3 class="media-heading">Wikipedia Hall of Fame</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jun 6, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I found this dataset at Harvard Dataverse - a collaboration with Harvard Library, Harvard University IT, and IQSS - about the most famous biographies present on Wikipedia. The Pantheon dataset is “a dataset of individuals that have transcended linguistic, temporal, and geographic boundaries.”
+It includes 11,341 biographies present in more than 25 languages on Wikipedia and is “enriched with: (i) manually verified demographic information (place and date of birth, gender); (ii) a taxonomy of occupations classifying each biography at three levels of aggregation; and (iii) two measures of global popularity including the number of languages in which a biography is present in Wikipedia (L), and the Historical Popularity Index (HPI) a metric that combines information on L, time since birth, and page-views (2008-2013).</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/05/how-to-select-a-reading-depending-on-your-state-of-mind/">
+                <h3 class="media-heading">How to Select a Reading Depending on your State of Mind</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  May 5, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Lately I’ve discovered sentiment analysis that combines natural language processing with text analysis to basically identify (and quantify!) feelings created by words. Some R packages like the syuzhet package are now available from the CRAN and doing your very own natural language analysis has never been so easy.
+Besides R packages, you will most certainly need some texts to analyze. For those of you who never heard about it, I would highly suggest having a look at the Project Gutenberg.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2016/04/public-health-data-from-the-who/">
+                <h3 class="media-heading">Public Health Data from the WHO</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Apr 4, 2016
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">I’ve been looking for a simple and reliable access to public health data for a while now. Eventually, I bumped into the WHO package, which allows downloading directly from the World Health Organization’s Global Health Observatory in a dynamic and reproducible way. The data is accessible after you installed the package either from the CRAN or GitHub.
+# From CRAN install.packages(&quot;WHO&quot;) # From Github library(devtools) install_github(&quot;expersso/WHO&quot;) Nothing fancy and the rest is pretty straightforward too: only two functions necessary.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         9 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-qi9wbxp2ya2j6p7wx1i6tgavftewndznf4v0hy2gvivk1rxgc3lm7njqb6bz.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+
+
+
+
+    
+  </body>
+</html>
+

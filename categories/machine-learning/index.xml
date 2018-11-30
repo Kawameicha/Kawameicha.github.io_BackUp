@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning on In Code We Trust</title>
+    <link>/categories/machine-learning/</link>
+    <description>Recent content in Machine Learning on In Code We Trust</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 30 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My Heart Will Go Down</title>
+      <link>/2018/11/my-heart-will-go-down/</link>
+      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/11/my-heart-will-go-down/</guid>
+      <description>The sinking of the RMS Titanic on April 15, 1912 after colliding with an iceberg during her maiden voyage from Southampton to New York City is one of the most infamous shipwrecks in history. It is one of the deadliest commercial peacetime maritime disasters in modern history killing 1502 out of 2224 passengers and crew and this sensational tragedy shocked the international community. Both Thomas Andrews, her architect and Capt. Edward Smith, who was in command went down with the ship.</description>
+    </item>
+    
+  </channel>
+</rss>
