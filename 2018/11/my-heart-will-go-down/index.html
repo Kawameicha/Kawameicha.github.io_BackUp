@@ -642,7 +642,7 @@ confMatrix_tree$overall[1]
 <p>Simply let the trees vote. Yes, vote. The prediction works in a similar way: in a random forest model each tree make its classification decisions based on different variables, except that after all trees made their decisions they discuss who’s right.</p>
 <pre class="r"><code># Build the random forest
 model_rf &lt;- randomForest(Survived ~ ., importance = TRUE, ntree = 2000, data = train_tit_tbl)</code></pre>
-<p>I’ve happily set 2000 trees here. Whoever’s seen another movie (or much better, read the books) know that trees can argue for quite a long time before taking any decisions. However, this dataset doesn’t contain that many observations and 2000 isn’t really going to slow us down.</p>
+<p>I’ve happily set 2000 trees here. Whoever’s seen another movie (or much better, read the books) knows that trees can argue for quite a long time before taking any decisions. However, this dataset doesn’t contain that many observations and 2000 isn’t really going to slow us down.</p>
 <pre class="r"><code># Let the model do its magic
 fitted_results_rf &lt;- predict(model_rf, test_tit_tbl, type = &quot;class&quot;)
 test_tit_tbl$predicted_rf &lt;- as.factor(ifelse(fitted_results_rf &gt; .5, &quot;Yes&quot;, &quot;No&quot;))
@@ -664,7 +664,7 @@ confMatrix_rf$overall[1]
 </div>
 <div id="we-want-to-be-approximately-right-rather-than-exactly-wrong" class="section level1">
 <h1>We want to be approximately right, rather than exactly wrong</h1>
-<p>Although 85.39% isn’t probably the best we can achieve we’ve come a long way already, from the 61.62% baseline to the 85.39% accuracy of the random forest. There is no no free lunch theorem of machine learning, no super algorithm, that works best in all situations, for all datasets. We simply tried different implementations of a decision tree, which is the easiest concept to learn and understand. There are other flavors we didn’t talk about yet, nor did we tune your models at all here.</p>
+<p>Although 85.39% isn’t probably the best we can achieve we’ve come a long way already, from the 61.62% baseline to the 85.39% accuracy of the random forest. There is no no free lunch theorem of machine learning, no super algorithm, that works best in all situations, for all datasets. We simply tried different implementations of a decision tree, which is the easiest concept to learn and understand. There are other flavors we didn’t talk about yet, nor did we tune our models at all here.</p>
 <p>Interestingly, the <code>Title</code> variable we derived from the <code>Name</code> was used in the first question asked by the decision trees. The question was <em>is your passenger a Mr.?</em> and not <em>is your passenger a male?</em>. Young males, particularly children, had better survival chances than married adults. This is a nice example of how feature engineering can help extract better variables and is were most of the work goes. There is certainly more we can do here and I’m sure the accuracy can be improved, but I’m afraid we will never be able to save Jack.</p>
 </div>
 
